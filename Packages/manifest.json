@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.0.37",
-    "com.miragenet.mirage": "100.0.2",
+    "com.miragenet.mirage": "https://github.com/MirageNet/Mirage.git?path=/Assets/Mirage#Encryption",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.ads": "3.7.1",

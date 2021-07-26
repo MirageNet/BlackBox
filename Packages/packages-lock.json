@@ -8,14 +8,14 @@
       "url": "https://package.openupm.com"
     },
     "com.miragenet.mirage": {
-      "version": "100.0.2",
+      "version": "https://github.com/MirageNet/Mirage.git?path=/Assets/Mirage#Encryption",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {
         "com.unity.nuget.mono-cecil": "1.10.1",
         "com.cysharp.unitask": "2.0.36"
       },
-      "url": "https://package.openupm.com"
+      "hash": "a6597bdfe84219ac9633e1be456b243818145c91"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
