@@ -8,7 +8,7 @@ To create a plugin for MirrorNG, follow these steps:
 
 Once your plugin is working the way you like,  you can add it to openupm by going to https://openupm.com/packages/add/
 
-[![Discord](https://img.shields.io/discord/343440455738064897.svg)](https://discordapp.com/invite/N9QVxbM)
+[![Discord](https://img.shields.io/discord/809535064551456888.svg)](https://discordapp.com/invite/DTBPBYvexy)
 [![release](https://img.shields.io/github/release/Miragenet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/releases/latest)
 
 [![Build](https://github.com/MirrorNG/Discovery/workflows/CI/badge.svg)](https://github.com/MirageNet/BlackBox/actions?query=workflow%3ACI)
