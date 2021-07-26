@@ -1,7 +1,8 @@
+using Mirage;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Mirage.Examples.Basic
+namespace BlackBox.Examples.Basic
 {
     public class Player : NetworkBehaviour
     {

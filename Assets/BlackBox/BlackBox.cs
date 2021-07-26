@@ -32,7 +32,7 @@ namespace BlackBox
         #region Client
 
         /// <summary>
-        /// 
+        ///     Client has started up let's assign client handler to encryption.
         /// </summary>
         private void OnClientStarted()
         {

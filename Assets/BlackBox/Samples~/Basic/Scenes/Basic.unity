@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 249891962}
   - component: {fileID: 249891963}
   - component: {fileID: 249891964}
+  - component: {fileID: 249891954}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -241,6 +242,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &249891954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249891953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f19929bdeb7f148a97c6b9241b9a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &249891955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,23 +451,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Levels:
-  - Name: NetworkSceneManager
-    level: 2
-  - Name: CharacterSpawner
-    level: 2
   - Name: ClientObjectManager
     level: 2
   - Name: NetworkClient
     level: 2
   - Name: NetworkTime
     level: 2
-  - Name: ServerObjectManager
+  - Name: NetworkSceneManager
     level: 2
-  - Name: NetworkServer
+  - Name: CharacterSpawner
     level: 2
   - Name: NetworkIdentity
     level: 2
+  - Name: ServerObjectManager
+    level: 2
   - Name: NetworkBehaviour
+    level: 2
+  - Name: NetworkServer
     level: 2
   - Name: BlackBoxFactory
     level: 2
