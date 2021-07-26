@@ -6,14 +6,14 @@
     "description": "A plugin for mirage to allow to send and receive encrypted messages.",
     "author": "Team Mirage",
     "dependencies": {
-        "com.miragenet.mirage": "61.0.0",
+        "com.miragenet.mirage": "100.0.3",
         "com.cysharp.unitask": "2.0.36"
     },
     "samples": [
         {
-            "displayName": "Example1",
-            "description": "Demonstrates how to make an example",
-            "path": "Samples~/Example1"
+            "displayName": "Basic",
+            "description": "Basic example of how to use encryption",
+            "path": "Samples~/Basic"
         }
     ]
 }
