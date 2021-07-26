@@ -3,11 +3,11 @@ plugins:
   - '@semantic-release/release-notes-generator'
   - '@semantic-release/commit-analyzer'
   - - '@semantic-release/changelog'
-    - changelogFile: 'Assets/MyPlugin/CHANGELOG.md'
+    - changelogFile: 'Assets/BlackBox/CHANGELOG.md'
   - - '@semantic-release/npm'
     - npmPublish: false,
-      pkgRoot: 'Assets/MyPlugin'
+      pkgRoot: 'Assets/BlackBox'
   - - '@semantic-release/git'
     - assets:
-      - 'Assets/MyPlugin/package.json'
-      - 'Assets/MyPlugin/CHANGELOG.md'
+      - 'Assets/BlackBox/package.json'
+      - 'Assets/BlackBox/CHANGELOG.md'
