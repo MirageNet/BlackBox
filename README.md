@@ -8,10 +8,8 @@ To create a plugin for MirrorNG, follow these steps:
 
 Once your plugin is working the way you like,  you can add it to openupm by going to https://openupm.com/packages/add/
 
-![Mirror Logo](https://i.imgur.com/ikP9eYs.png)
-
 [![Discord](https://img.shields.io/discord/343440455738064897.svg)](https://discordapp.com/invite/N9QVxbM)
-[![release](https://img.shields.io/github/release/MirrorNG/Discovery.svg)](https://github.com/MirageNet/BlackBox/releases/latest)
+[![release](https://img.shields.io/github/release/Miragenet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/releases/latest)
 
 [![Build](https://github.com/MirrorNG/Discovery/workflows/CI/badge.svg)](https://github.com/MirageNet/BlackBox/actions?query=workflow%3ACI)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=alert_status)](https://sonarcloud.io/dashboard?id=BlackBox)
@@ -29,11 +27,12 @@ The preferred installation method is Unity Package manager.
 If you are using unity 2019.3 or later: 
 
 1) Open your project in unity
-2) Install [Mirage](https://github.com/MirrorNG/MirrorNG)
+2) Install [Mirage](https://github.com/MirageNet/Mirage)
 3) Click on Windows -> Package Manager
 4) Click on the plus sign on the left and click on "Add package from git URL..."
 5) enter https://github.com/MirageNet/BlackBox.git?path=/Assets/BlackBox
-6) Unity will download and install MirrorNG Discovery
+6) Unity will download and install BlackBox
+7) Make sure .NET 4.X set for compiler level.
 
 ## Usage
 

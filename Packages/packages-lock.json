@@ -7,16 +7,6 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
-    "com.mirrorng.mirrorng": {
-      "version": "61.0.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "nuget.mono-cecil": "0.1.6-preview",
-        "com.cysharp.unitask": "2.0.36"
-      },
-      "url": "https://package.openupm.com"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
