@@ -38,6 +38,19 @@ namespace BlackBox.Examples.Basic
             NetIdentity.OnStartLocalPlayer.AddListener(OnStartLocalPlayer);
         }
 
+        private void OnGUI()
+        {
+            if(GUILayout.Button("Send Message"))
+            {
+                BlackBoxFactory blk = FindObjectOfType<BlackBoxFactory>();
+
+                blk.BlackBoxEncryption.Send(NetIdentity.Client.Player, new ReadyMessage());
+            }
+        }
+
+        [NetworkMessage]
+        public struct EncryptionTest{ }
+
         // This is called by the hook of playerData SyncVar above
         void OnPlayerDataChanged(int oldPlayerData, int newPlayerData)
         {

@@ -1,0 +1,17 @@
+{
+    "name": "BlackBox.Examples",
+    "rootNamespace": "BlackBox.Examples",
+    "references": [
+        "GUID:30817c1a0e6d646d99c048fc403f5979",
+        "GUID:e19462a2b2d37ab4d82a294e7e8c9617"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
