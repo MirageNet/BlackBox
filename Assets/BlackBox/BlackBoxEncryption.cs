@@ -78,13 +78,13 @@ namespace BlackBox
         /// <returns></returns>
         protected override ArraySegment<byte> DecryptMessage(ArraySegment<byte> payload)
         {
-            byte[] test = new byte[payload.Count];
+            byte[] strippedArray = new byte[payload.Count];
 
-            Array.Copy(payload.Array, payload.Offset, test, 0, test.Length);
+            Array.Copy(payload.Array, payload.Offset, strippedArray, 0, strippedArray.Length);
 
-            Debug.Log($" Before Decrypted Length: {test.Length} Message: {BitConverter.ToString(test)}");
+            Debug.Log($" Before Decrypted Length: {strippedArray.Length} Message: {BitConverter.ToString(strippedArray)}");
 
-            ArraySegment<byte> decrypted = ProcessData(test, false);
+            ArraySegment<byte> decrypted = ProcessData(strippedArray, false);
 
             Debug.Log($"After Decrypted Length: {decrypted.Count} Message {BitConverter.ToString(decrypted.Array)}");
 
@@ -98,13 +98,13 @@ namespace BlackBox
         /// <returns></returns>
         protected override ArraySegment<byte> EncryptMessage(ArraySegment<byte> payload)
         {
-            byte[] test = new byte[payload.Count];
+            byte[] strippedArray = new byte[payload.Count];
 
-            Array.Copy(payload.Array, test, test.Length);
+            Array.Copy(payload.Array, strippedArray, strippedArray.Length);
 
-            Debug.Log($" Before Encrypted  Length: {payload.Count} Message: {BitConverter.ToString(test)}");
+            Debug.Log($" Before Encrypted  Length: {payload.Count} Message: {BitConverter.ToString(strippedArray)}");
 
-            ArraySegment<byte> encryptedData = ProcessData(test, true);
+            ArraySegment<byte> encryptedData = ProcessData(strippedArray, true);
 
             Debug.Log($"After Encrypted Length: {encryptedData.Count} Message {BitConverter.ToString(encryptedData.Array)}");
 

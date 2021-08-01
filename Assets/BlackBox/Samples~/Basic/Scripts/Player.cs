@@ -1,5 +1,6 @@
 using Mirage;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace BlackBox.Examples.Basic
@@ -44,7 +45,7 @@ namespace BlackBox.Examples.Basic
             {
                 BlackBoxFactory blk = FindObjectOfType<BlackBoxFactory>();
 
-                blk.BlackBoxEncryption.Send(NetIdentity.Client.Player, new ReadyMessage());
+                blk.BlackBoxEncryption.Send(NetIdentity.Client.Player, new EncryptionTest());
             }
         }
 
@@ -67,6 +68,9 @@ namespace BlackBox.Examples.Basic
 
             // Start generating updates
             InvokeRepeating(nameof(UpdateData), 1, 1);
+
+            NetIdentity.ServerObjectManager.Server.MessageHandler.RegisterHandler<EncryptionTest>(message =>
+                Debug.Log("Received Test Encryption."));
         }
 
         // This only runs on the server, called from OnStartServer via InvokeRepeating
@@ -90,6 +94,9 @@ namespace BlackBox.Examples.Basic
             // Apply SyncVar values
             playerNameText.color = playerColor;
             playerNameText.text = string.Format("Player {0:00}", playerNo);
+
+            NetIdentity.ClientObjectManager.Client.MessageHandler.RegisterHandler<EncryptionTest>(message =>
+                Debug.Log("Received Test Encryption."));
         }
 
         // This only fires on the local client when this player object is network-ready
