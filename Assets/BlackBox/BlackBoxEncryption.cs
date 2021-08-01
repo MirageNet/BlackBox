@@ -58,9 +58,10 @@ namespace BlackBox
 
         private ArraySegment<byte> ProcessData(byte[] data, bool encrypt)
         {
-            IBufferedCipher cipher = CipherUtilities.GetCipher("AES/CFB/NOPADDING");
+            IBufferedCipher cipher = CipherUtilities.GetCipher("AES/OFB/NOPADDING");
 
             cipher.Init(encrypt, new KeyParameter(AesKey));
+
             byte[] processed = new byte[cipher.GetOutputSize(data.Length)];
 
             int lengthProcess = cipher.ProcessBytes(data, 0, data.Length, processed, 0);
@@ -77,9 +78,13 @@ namespace BlackBox
         /// <returns></returns>
         protected override ArraySegment<byte> DecryptMessage(ArraySegment<byte> payload)
         {
-            Debug.Log($" Before Decrypted Length: {payload.Count} Message: {BitConverter.ToString(payload.Array)}");
+            byte[] test = new byte[payload.Count];
 
-            ArraySegment<byte> decrypted = ProcessData(payload.Array, false);
+            Array.Copy(payload.Array, payload.Offset, test, 0, test.Length);
+
+            Debug.Log($" Before Decrypted Length: {test.Length} Message: {BitConverter.ToString(test)}");
+
+            ArraySegment<byte> decrypted = ProcessData(test, false);
 
             Debug.Log($"After Decrypted Length: {decrypted.Count} Message {BitConverter.ToString(decrypted.Array)}");
 
