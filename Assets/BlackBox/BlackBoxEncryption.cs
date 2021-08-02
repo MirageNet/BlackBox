@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Mirage;
 using Mirage.Logging;
+using Mirage.SocketLayer;
 using Org.BouncyCastle.Asn1.Nist;
 using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Crypto;
@@ -23,7 +24,7 @@ namespace BlackBox
 
         internal readonly AsymmetricCipherKeyPair KeyPair;
         internal readonly X9ECParameters X9EC;
-        internal readonly Dictionary<INetworkPlayer, byte[]> ClientKeys = new Dictionary<INetworkPlayer, byte[]>();
+        internal readonly Dictionary<IConnection, byte[]> ClientKeys = new Dictionary<IConnection, byte[]>();
 
         #endregion
 
@@ -55,7 +56,7 @@ namespace BlackBox
             digest.BlockUpdate(sharedSecretBytes, 0, sharedSecretBytes.Length);
             digest.DoFinal(symmetricKey, 0);
 
-            ClientKeys.Add(player, symmetricKey);
+            ClientKeys.Add(player.Connection, symmetricKey);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace BlackBox
         /// <param name="player"></param>
         public void RemoveKey(INetworkPlayer player)
         {
-            Assert.IsTrue(ClientKeys.Remove(player), "Player does not exist. Could not remove key from list.");
+            Assert.IsTrue(ClientKeys.Remove(player.Connection), "Player does not exist. Could not remove key from list.");
         }
 
         public BlackBoxEncryption(MessageHandler messageHandler) : base(messageHandler)
@@ -87,7 +88,7 @@ namespace BlackBox
         {
             IBufferedCipher cipher = CipherUtilities.GetCipher("AES/OFB/NOPADDING");
 
-            cipher.Init(encrypt, new KeyParameter(ClientKeys[player]));
+            cipher.Init(encrypt, new KeyParameter(ClientKeys[player.Connection]));
 
             byte[] processed = new byte[cipher.GetOutputSize(data.Length)];
 

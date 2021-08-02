@@ -3,7 +3,8 @@
     "rootNamespace": "BlackBox",
     "references": [
         "GUID:30817c1a0e6d646d99c048fc403f5979",
-        "GUID:345ab9310e523b749952593300ad82c0"
+        "GUID:345ab9310e523b749952593300ad82c0",
+        "GUID:c0b2064c294eb174c9f3f7da398eb677"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -69,7 +69,7 @@ namespace BlackBox.Examples.Basic
         {
             var message = new EncryptedMessage { Message = Random.Range(100, 1000)};
 
-            _blk.BlackBoxEncryption.Send(NetIdentity.ConnectionToClient, message);
+            _blk.ServerBlackBoxEncryption.Send(NetIdentity.ConnectionToClient, message);
         }
 
         // This fires on all clients when this player object is network-ready

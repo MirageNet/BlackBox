@@ -17,7 +17,7 @@ namespace BlackBox
         #region Network Messages
 
         [NetworkMessage]
-        private struct SharePublicKey
+        internal struct SharePublicKey
         {
             public string PublicShareKeyX;
             public string PublicShareKeyY;
@@ -27,16 +27,20 @@ namespace BlackBox
 
         #region Fields
 
-        public BlackBoxEncryption BlackBoxEncryption;
+        public BlackBoxEncryption ClientBlackBoxEncryption;
+        public BlackBoxEncryption ServerBlackBoxEncryption;
         private NetworkServer _server;
         private NetworkClient _client;
 
         #region Events
 
         [Header("Events")] [SerializeField]
-        private GeneratedPublicKeyEvent _generatedPublicKey = new GeneratedPublicKeyEvent();
+        private GeneratedPublicKeyEvent _serverGeneratedSharedKey = new GeneratedPublicKeyEvent();
+        private GeneratedPublicKeyEvent _clientGeneratedSharedKey = new GeneratedPublicKeyEvent();
 
-        public GeneratedPublicKeyEvent PublicKeyGenerated => _generatedPublicKey;
+        public GeneratedPublicKeyEvent OnServerGeneratedSharedKey => _serverGeneratedSharedKey;
+
+        public GeneratedPublicKeyEvent OnClientGeneratedSharedKey => _clientGeneratedSharedKey;
 
         #endregion
 
@@ -50,6 +54,7 @@ namespace BlackBox
             _client = GetComponent<NetworkClient>();
 
             _server.Started.AddListener(OnServerStarted);
+            _server.Connected.AddListener(OnServerAuthenticated);
             _server.Stopped.AddListener(OnServerStop);
             _server.Disconnected.AddListener(OnServerPlayerDisconnected);
 
@@ -63,7 +68,7 @@ namespace BlackBox
 
         private void OnClientDisconnected(ClientStoppedReason error)
         {
-            BlackBoxEncryption = null;
+            ClientBlackBoxEncryption = null;
         }
 
         /// <summary>
@@ -72,7 +77,7 @@ namespace BlackBox
         private void OnClientStarted()
         {
             // Calculate client's key pair.
-            BlackBoxEncryption = new BlackBoxEncryption(_client.MessageHandler);
+            ClientBlackBoxEncryption = new BlackBoxEncryption(_client.MessageHandler);
 
             _client.MessageHandler.RegisterHandler<SharePublicKey>(OnServerSharePublicKey);
         }
@@ -84,7 +89,7 @@ namespace BlackBox
         /// <param name="message">The message data we received.</param>
         private void OnServerSharePublicKey(INetworkPlayer player, SharePublicKey message)
         {
-            var publicKey = BlackBoxEncryption.KeyPair.Public as ECPublicKeyParameters;
+            var publicKey = ClientBlackBoxEncryption.KeyPair.Public as ECPublicKeyParameters;
 
             player.Send(new SharePublicKey
             {
@@ -92,14 +97,14 @@ namespace BlackBox
                 PublicShareKeyY = publicKey?.Q.AffineYCoord.ToBigInteger().ToString()
             });
 
-            ECPoint point = BlackBoxEncryption.X9EC.Curve.CreatePoint(new BigInteger(message.PublicShareKeyX),
+            ECPoint point = ClientBlackBoxEncryption.X9EC.Curve.CreatePoint(new BigInteger(message.PublicShareKeyX),
                 new BigInteger(message.PublicShareKeyY));
 
             // Calculate shared key from server's public key.
-            BlackBoxEncryption.GenerateAesKey(player,
+            ClientBlackBoxEncryption.GenerateAesKey(player,
                 new ECPublicKeyParameters("ECDH", point, SecObjectIdentifiers.SecP521r1));
 
-            _generatedPublicKey.Invoke(player);
+            _clientGeneratedSharedKey.Invoke(player);
         }
 
         #endregion
@@ -108,7 +113,7 @@ namespace BlackBox
 
         private void OnServerStop()
         {
-            BlackBoxEncryption = null;
+            ServerBlackBoxEncryption = null;
         }
 
     /// <summary>
@@ -117,7 +122,7 @@ namespace BlackBox
         /// <param name="player"></param>
         private void OnServerPlayerDisconnected(INetworkPlayer player)
         {
-            BlackBoxEncryption.RemoveKey(player);
+            ServerBlackBoxEncryption.RemoveKey(player);
         }
 
         /// <summary>
@@ -126,10 +131,9 @@ namespace BlackBox
         private void OnServerStarted()
         {
             // Create server key pair.
-            BlackBoxEncryption = new BlackBoxEncryption(_server.MessageHandler);
+            ServerBlackBoxEncryption = new BlackBoxEncryption(_server.MessageHandler);
 
             _server.MessageHandler.RegisterHandler<SharePublicKey>(OnClientSharePublicKey);
-            _server.Connected.AddListener(OnServerAuthenticated);
         }
 
         /// <summary>
@@ -138,7 +142,7 @@ namespace BlackBox
         /// <param name="player"></param>
         private void OnServerAuthenticated(INetworkPlayer player)
         {
-            var publicKey = BlackBoxEncryption.KeyPair.Public as ECPublicKeyParameters;
+            var publicKey = ServerBlackBoxEncryption.KeyPair.Public as ECPublicKeyParameters;
 
             // Send client the server's public key.
             player.Send(new SharePublicKey
@@ -155,13 +159,13 @@ namespace BlackBox
         /// <param name="message"></param>
         private void OnClientSharePublicKey(INetworkPlayer player, SharePublicKey message)
         {
-            ECPoint point = BlackBoxEncryption.X9EC.Curve.CreatePoint(new BigInteger(message.PublicShareKeyX),
+            ECPoint point = ServerBlackBoxEncryption.X9EC.Curve.CreatePoint(new BigInteger(message.PublicShareKeyX),
                 new BigInteger(message.PublicShareKeyY));
 
             // Calculate shared key from client's public key.
-            BlackBoxEncryption.GenerateAesKey(player, new ECPublicKeyParameters("ECDH", point, SecObjectIdentifiers.SecP521r1));
+            ServerBlackBoxEncryption.GenerateAesKey(player, new ECPublicKeyParameters("ECDH", point, SecObjectIdentifiers.SecP521r1));
 
-            _generatedPublicKey.Invoke(player);
+            _serverGeneratedSharedKey.Invoke(player);
         }
 
         #endregion
