@@ -1,6 +1,5 @@
 using Mirage;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace BlackBox.Examples.Basic
@@ -18,45 +17,39 @@ namespace BlackBox.Examples.Basic
         // These are set in OnStartServer and used in OnStartClient
         [SyncVar]
         int playerNo;
+
         [SyncVar]
         Color playerColor;
 
         private static int playerCounter = 1;
+
+        private BlackBoxFactory _blk;
 
         private static int GetNextPlayerId()
         {
             return playerCounter++;
         }
 
-        // This is updated by UpdateData which is called from OnStartServer via InvokeRepeating
-        [SyncVar(hook = nameof(OnPlayerDataChanged))]
-        public int playerData;
-
         void Awake()
         {
+            _blk = FindObjectOfType<BlackBoxFactory>();
+
             NetIdentity.OnStartServer.AddListener(OnStartServer);
             NetIdentity.OnStartClient.AddListener(OnStartClient);
             NetIdentity.OnStartLocalPlayer.AddListener(OnStartLocalPlayer);
         }
 
-        private void OnGUI()
+        [NetworkMessage]
+        public struct EncryptedMessage
         {
-            if(GUILayout.Button("Send Message"))
-            {
-                BlackBoxFactory blk = FindObjectOfType<BlackBoxFactory>();
-
-                blk.BlackBoxEncryption.Send(NetIdentity.Client.Player, new EncryptionTest());
-            }
+            public int Message;
         }
 
-        [NetworkMessage]
-        public struct EncryptionTest{ }
-
         // This is called by the hook of playerData SyncVar above
-        void OnPlayerDataChanged(int oldPlayerData, int newPlayerData)
+        private void OnPlayerDataChanged(INetworkPlayer player, EncryptedMessage message)
         {
             // Show the data in the UI
-            playerDataText.text = string.Format("Data: {0:000}", newPlayerData);
+            playerDataText.text = $"Decrypted Data: {message.Message:000}";
         }
 
         // This fires on server when this player object is network-ready
@@ -68,16 +61,15 @@ namespace BlackBox.Examples.Basic
 
             // Start generating updates
             InvokeRepeating(nameof(UpdateData), 1, 1);
-
-            NetIdentity.ServerObjectManager.Server.MessageHandler.RegisterHandler<EncryptionTest>(message =>
-                Debug.Log("Received Test Encryption."));
         }
 
         // This only runs on the server, called from OnStartServer via InvokeRepeating
         [Server(error = false)]
         void UpdateData()
         {
-            playerData = Random.Range(100, 1000);
+            var message = new EncryptedMessage { Message = Random.Range(100, 1000)};
+
+            _blk.BlackBoxEncryption.Send(NetIdentity.ConnectionToClient, message);
         }
 
         // This fires on all clients when this player object is network-ready
@@ -93,10 +85,9 @@ namespace BlackBox.Examples.Basic
 
             // Apply SyncVar values
             playerNameText.color = playerColor;
-            playerNameText.text = string.Format("Player {0:00}", playerNo);
+            playerNameText.text = $"Player {playerNo:00}";
 
-            NetIdentity.ClientObjectManager.Client.MessageHandler.RegisterHandler<EncryptionTest>(message =>
-                Debug.Log("Received Test Encryption."));
+            NetIdentity.ClientObjectManager.Client.MessageHandler.RegisterHandler<EncryptedMessage>(OnPlayerDataChanged);
         }
 
         // This only fires on the local client when this player object is network-ready
