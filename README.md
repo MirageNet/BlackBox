@@ -11,6 +11,13 @@
 
 BlackBox is a plugin for Mirage to allow encrypting and decrypting of messages.
 
+## Warning
+This does not protect you from any type of MITM attacks. This still requires end users to have there servers behind some type of ssl connection to securely pass around the public key between clients and server.
+Each time a user connects to the server a new public key is assigned and server matches and creates a shared key with each client. Each new instance of server or even upn reboot will recreate a new private / public
+key that the server will use to generate a shared key. So if there is a MITM attack its only for that single instance user is connected and or server is not rebooted. 
+
+In the future I do plan to add feature to have a ssl connection to pass the key around to protect it fully from MITM attacks. At this time mirage is still in progress towards that goal.
+
 ## Installation
 The preferred installation method is Unity Package manager.
 
@@ -24,9 +31,16 @@ If you are using unity 2019.3 or later:
 6) Unity will download and install BlackBox
 7) Make sure .NET 4.X set for compiler level.
 
-## Usage
+## Basic Usage
 
 1) In Unity create a NetworkManager gameobject from the GameObject -> Networking -> NetworkManager.
+2) Attach BlackboxFactory to same gameobject the network manager is on.
+3) After this just get reference to the blackboxfactory script and call BlackBoxServer.Send or BlackBoxClient.Send to send encrypted messages from server side or client side.
+
+## Authenticator Usage
+1) Attach BlackboxAuthenticator to same object as network manager is attached to. After that everything will link on its own.
+2) In inspector or in code change the username / password to authenticate user's using encryption method. At this time server just accepts all authentication.
+if you want to change that please inherit from BlackboxAuthenticator and override the method OnMessageResponse to take control checking on server if username / password is correct.
 
 ## Contributing
 
