@@ -83,10 +83,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate Solution
-        run: unity-editor -nographics -logFile /dev/stdout -customBuildName Mirage -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
-
-      - name: SonarQube analysis
-        env:
-          FrameworkPathOverride: /opt/unity/Editor/Data/MonoBleedingEdge/
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: unity-editor -nographics -logFile /dev/stdout -customBuildName Mirage -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -qui
