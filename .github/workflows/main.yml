@@ -9,8 +9,6 @@ on:
 jobs:
   requestActivationFile:
   runs-on: ubuntu-latest
-    # available list of containers here:
-    # https://hub.docker.com/r/ubuntu-2021.1.12f1nityci/editor/tags?page=1&ordering=last_updated&name=ubuntu-2020.1.17f1-base
     container: unityci/editor:ubuntu-2021.1.12f1-base-0.15.0
     if: false
     steps:
