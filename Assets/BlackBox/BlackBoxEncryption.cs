@@ -86,7 +86,7 @@ namespace BlackBox
         /// <returns></returns>
         private ArraySegment<byte> ProcessData(INetworkPlayer player, byte[] data, bool encrypt)
         {
-            IBufferedCipher cipher = CipherUtilities.GetCipher("AES/CFB/NOPADDING");
+            IBufferedCipher cipher = CipherUtilities.GetCipher("AES/CTS/NOPADDING");
 
             cipher.Init(encrypt, ParameterUtilities.CreateKeyParameter("AES", ClientKeys[player.Connection]));
 

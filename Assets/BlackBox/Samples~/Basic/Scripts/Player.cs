@@ -62,7 +62,7 @@ namespace BlackBox.Examples.Basic
 
             await Task.Delay(2000);
 
-            _blk.ClientBlackBoxEncryption.Send(player, newMessage);
+            _blk?.ClientBlackBoxEncryption.Send(player, newMessage);
         }
 
         private void OnPlayerDataChanged(INetworkPlayer player, ClientEncryptedMessage message)
@@ -89,7 +89,7 @@ namespace BlackBox.Examples.Basic
         {
             var message = new ServerEncryptedMessage {Message = $"Hello from server {Random.Range(100, 1000)}."};
 
-            _blk.ServerBlackBoxEncryption.Send(NetIdentity.ConnectionToClient, message);
+            _blk?.ServerBlackBoxEncryption.Send(NetIdentity.ConnectionToClient, message);
         }
 
         // This fires on all clients when this player object is network-ready
