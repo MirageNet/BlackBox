@@ -14,6 +14,11 @@
             "displayName": "Basic",
             "description": "Basic example of how to use encryption",
             "path": "Samples~/Basic"
-        }
+        },
+		{
+			"displayName": "Login",
+            "description": "Login example of how to use encryption for mirage authenticators.",
+            "path": "Samples~/Login"
+		}
     ]
 }
