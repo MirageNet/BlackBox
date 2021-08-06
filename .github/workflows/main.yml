@@ -15,8 +15,7 @@ jobs:
     container: unityci/editor:ubuntu-2020.1.17f1-base-0.10.0
     env:
       DOTNET_ROOT: '/opt/unity/Editor/Data/NetCore/Sdk-2.2.107'
-    env:
-      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      
     steps:
   - name: Activate unity
         # exit code is 1 for manual activation
