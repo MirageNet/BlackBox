@@ -8,8 +8,6 @@ on:
   
 jobs:
   requestActivationFile:
-  runs-on: ubuntu-latest
-    container: unityci/editor:ubuntu-2021.1.12f1-base-0.15.0
     if: false
     steps:
       - name: Checkout repository
@@ -30,6 +28,7 @@ jobs:
   CI:
     name: Test
     runs-on: ubuntu-latest
+    container: unityci/editor:ubuntu-2021.1.12f1-base-0.15.0
     env:
       UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
     if: true
