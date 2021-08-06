@@ -1,13 +1,3 @@
-## Usage
-
-To create a plugin for MirrorNG, follow these steps:
-
-7) update README.txt to describe your project
-8) While not strictly required,  I suggest creating a symbolic link from Assets/MyPlugin/Samples~ to Assets/Samples. This will allow you to open and edit your examples in unity.
-9) Add your samples to package.json, so upm can install them.
-
-Once your plugin is working the way you like,  you can add it to openupm by going to https://openupm.com/packages/add/
-
 [![Discord](https://img.shields.io/discord/809535064551456888.svg)](https://discordapp.com/invite/DTBPBYvexy)
 [![release](https://img.shields.io/github/release/Miragenet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/releases/latest)
 
