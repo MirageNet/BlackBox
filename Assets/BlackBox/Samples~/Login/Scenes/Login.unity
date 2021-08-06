@@ -1471,25 +1471,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Levels:
+  - Name: NetworkBehaviour
+    level: 2
+  - Name: ServerObjectManager
+    level: 2
   - Name: NetworkSceneManager
-    level: 2
-  - Name: NetworkClient
-    level: 2
-  - Name: NetworkTime
     level: 2
   - Name: NetworkIdentity
     level: 2
-  - Name: ClientObjectManager
+  - Name: CharacterSpawner
     level: 2
-  - Name: NetworkBehaviour
+  - Name: ClientObjectManager
     level: 2
   - Name: NetworkServer
     level: 2
-  - Name: BlackBoxLoginAuthenticator
-    level: 3
-  - Name: ServerObjectManager
+  - Name: NetworkTime
     level: 2
-  - Name: CharacterSpawner
+  - Name: NetworkClient
+    level: 2
+  - Name: BlackBoxLoginAuthenticator
     level: 2
   - Name: BlackBoxFactory
     level: 2
@@ -1576,7 +1576,7 @@ MonoBehaviour:
   - Name: Peer
     level: 2
   - Name: NetworkPlayer
-    level: 3
+    level: 2
   - Name: NetworkWorld
     level: 2
   - Name: SyncVarReceiver

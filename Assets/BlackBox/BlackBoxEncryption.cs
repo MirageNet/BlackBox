@@ -83,7 +83,7 @@ namespace BlackBox
         /// <param name="player">The player that sent the message to be encrypted or decrypted.</param>
         /// <param name="data">The data we need to encrypt or decrypt.</param>
         /// <param name="encrypt">Whether or not we are going to encrypt or decrypt mode.</param>
-        /// <returns></returns>
+        /// <returns>Returns back the data in decrypted or encrypted form.</returns>
         private ArraySegment<byte> ProcessData(INetworkPlayer player, byte[] data, bool encrypt)
         {
             IBufferedCipher cipher = CipherUtilities.GetCipher("AES/CTS/NOPADDING");

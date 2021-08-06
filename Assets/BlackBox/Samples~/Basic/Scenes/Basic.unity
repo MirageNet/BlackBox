@@ -524,26 +524,26 @@ MonoBehaviour:
   Levels:
   - Name: NetworkBehaviour
     level: 2
-  - Name: NetworkClient
-    level: 2
-  - Name: NetworkTime
-    level: 2
-  - Name: NetworkServer
-    level: 2
   - Name: ServerObjectManager
-    level: 2
-  - Name: CharacterSpawner
-    level: 2
-  - Name: NetworkIdentity
-    level: 2
-  - Name: ClientObjectManager
     level: 2
   - Name: NetworkSceneManager
     level: 2
+  - Name: NetworkIdentity
+    level: 2
+  - Name: CharacterSpawner
+    level: 2
+  - Name: ClientObjectManager
+    level: 2
+  - Name: NetworkServer
+    level: 2
+  - Name: NetworkTime
+    level: 2
+  - Name: NetworkClient
+    level: 2
   - Name: BlackBoxLoginAuthenticator
-    level: 3
+    level: 2
   - Name: BlackBoxFactory
-    level: 3
+    level: 2
   - Name: NetworkBehaviourInspector
     level: 2
   - Name: NetworkSceneChecker
@@ -667,7 +667,7 @@ MonoBehaviour:
   - Name: BlackBoxSocket
     level: 2
   - Name: BlackBoxEncryption
-    level: 3
+    level: 2
 --- !u!114 &1683207730
 MonoBehaviour:
   m_ObjectHideFlags: 0
