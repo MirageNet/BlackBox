@@ -8,7 +8,7 @@ on:
   
 jobs:
   requestActivationFile:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     if: false
     steps:
       - name: Checkout repository
