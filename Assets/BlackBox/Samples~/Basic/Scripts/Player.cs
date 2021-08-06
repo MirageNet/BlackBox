@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Mirage;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,16 +41,33 @@ namespace BlackBox.Examples.Basic
         }
 
         [NetworkMessage]
-        public struct EncryptedMessage
+        public struct ServerEncryptedMessage
         {
-            public int Message;
+            public string Message;
+        }
+
+        [NetworkMessage]
+        public struct ClientEncryptedMessage
+        {
+            public string Message;
         }
 
         // This is called by the hook of playerData SyncVar above
-        private void OnPlayerDataChanged(INetworkPlayer player, EncryptedMessage message)
+        private async void OnPlayerDataChanged(INetworkPlayer player, ServerEncryptedMessage message)
         {
             // Show the data in the UI
-            playerDataText.text = $"Decrypted Data: {message.Message:000}";
+            playerDataText.text = $"Decrypted Data: {message.Message}";
+
+            var newMessage = new ClientEncryptedMessage { Message = $"Hello from client {Random.Range(100, 1000)}." };
+
+            await Task.Delay(2000);
+
+            _blk.ClientBlackBoxEncryption.Send(player, newMessage);
+        }
+
+        private void OnPlayerDataChanged(INetworkPlayer player, ClientEncryptedMessage message)
+        {
+            playerDataText.text = $"Decrypted Data: {message.Message}";
         }
 
         // This fires on server when this player object is network-ready
@@ -60,14 +78,16 @@ namespace BlackBox.Examples.Basic
             playerColor = Random.ColorHSV(0f, 1f, 0.9f, 0.9f, 1f, 1f);
 
             // Start generating updates
-            InvokeRepeating(nameof(UpdateData), 1, 1);
+            InvokeRepeating(nameof(UpdateData), 1, 2);
+
+            NetIdentity.ServerObjectManager.Server.MessageHandler.RegisterHandler<ClientEncryptedMessage>(OnPlayerDataChanged);
         }
 
         // This only runs on the server, called from OnStartServer via InvokeRepeating
         [Server(error = false)]
         void UpdateData()
         {
-            var message = new EncryptedMessage { Message = Random.Range(100, 1000)};
+            var message = new ServerEncryptedMessage {Message = $"Hello from server {Random.Range(100, 1000)}."};
 
             _blk.ServerBlackBoxEncryption.Send(NetIdentity.ConnectionToClient, message);
         }
@@ -87,7 +107,7 @@ namespace BlackBox.Examples.Basic
             playerNameText.color = playerColor;
             playerNameText.text = $"Player {playerNo:00}";
 
-            NetIdentity.ClientObjectManager.Client.MessageHandler.RegisterHandler<EncryptedMessage>(OnPlayerDataChanged);
+            NetIdentity.ClientObjectManager.Client.MessageHandler.RegisterHandler<ServerEncryptedMessage>(OnPlayerDataChanged);
         }
 
         // This only fires on the local client when this player object is network-ready

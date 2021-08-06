@@ -92,6 +92,9 @@ namespace BlackBox
         {
             client.MessageHandler.RegisterHandler<AuthResponse>(OnMessageResponse);
 
+            // Remove all listener's first.
+            _blackBoxFactory.OnClientGeneratedSharedKey.RemoveAllListeners();
+
             _blackBoxFactory.OnClientGeneratedSharedKey.AddListener(OnKeyGenerated);
         }
 

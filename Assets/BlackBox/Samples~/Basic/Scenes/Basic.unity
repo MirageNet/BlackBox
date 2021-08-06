@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f19929bdeb7f148a97c6b9241b9a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _generatedPublicKey:
+  _serverGeneratedSharedKey:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1683207729
@@ -522,23 +522,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Levels:
-  - Name: NetworkServer
-    level: 2
-  - Name: NetworkTime
+  - Name: NetworkBehaviour
     level: 2
   - Name: NetworkClient
     level: 2
-  - Name: NetworkIdentity
+  - Name: NetworkTime
+    level: 2
+  - Name: NetworkServer
+    level: 2
+  - Name: ServerObjectManager
     level: 2
   - Name: CharacterSpawner
     level: 2
+  - Name: NetworkIdentity
+    level: 2
   - Name: ClientObjectManager
     level: 2
-  - Name: NetworkBehaviour
-    level: 2
   - Name: NetworkSceneManager
-    level: 2
-  - Name: ServerObjectManager
     level: 2
   - Name: BlackBoxLoginAuthenticator
     level: 3
@@ -625,9 +625,9 @@ MonoBehaviour:
   - Name: WelcomeWindow
     level: 2
   - Name: Peer
-    level: 3
+    level: 2
   - Name: NetworkPlayer
-    level: 3
+    level: 2
   - Name: NetworkWorld
     level: 2
   - Name: SyncVarReceiver
@@ -667,7 +667,7 @@ MonoBehaviour:
   - Name: BlackBoxSocket
     level: 2
   - Name: BlackBoxEncryption
-    level: 2
+    level: 3
 --- !u!114 &1683207730
 MonoBehaviour:
   m_ObjectHideFlags: 0

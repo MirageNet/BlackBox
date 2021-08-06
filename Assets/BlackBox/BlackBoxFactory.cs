@@ -102,7 +102,7 @@ namespace BlackBox
 
             // Calculate shared key from server's public key.
             ClientBlackBoxEncryption.GenerateAesKey(player,
-                new ECPublicKeyParameters("ECDH", point, SecObjectIdentifiers.SecP521r1));
+                new ECPublicKeyParameters("ECDHC", point, SecObjectIdentifiers.SecP521r1));
 
             _clientGeneratedSharedKey.Invoke(player);
         }
@@ -163,7 +163,7 @@ namespace BlackBox
                 new BigInteger(message.PublicShareKeyY));
 
             // Calculate shared key from client's public key.
-            ServerBlackBoxEncryption.GenerateAesKey(player, new ECPublicKeyParameters("ECDH", point, SecObjectIdentifiers.SecP521r1));
+            ServerBlackBoxEncryption.GenerateAesKey(player, new ECPublicKeyParameters("ECDHC", point, SecObjectIdentifiers.SecP521r1));
 
             _serverGeneratedSharedKey.Invoke(player);
         }

@@ -30,7 +30,7 @@ namespace BlackBox
 
         private AsymmetricCipherKeyPair GenerateKeyPair(ECDomainParameters ecDomain)
         {
-            var keyGenerator = (ECKeyPairGenerator)GeneratorUtilities.GetKeyPairGenerator("ECDH");
+            var keyGenerator = (ECKeyPairGenerator)GeneratorUtilities.GetKeyPairGenerator("ECDHC");
 
             keyGenerator.Init(new ECKeyGenerationParameters(ecDomain, new SecureRandom()));
 
@@ -44,7 +44,7 @@ namespace BlackBox
         /// <param name="sharedPublicKey">The public key to use to create a new shared public key.</param>
         public void GenerateAesKey(INetworkPlayer player, ECPublicKeyParameters sharedPublicKey)
         {
-            IBasicAgreement aKeyAgree = AgreementUtilities.GetBasicAgreement("ECDH");
+            IBasicAgreement aKeyAgree = AgreementUtilities.GetBasicAgreement("ECDHC");
             aKeyAgree.Init(KeyPair.Private);
 
             BigInteger sharedSecret = aKeyAgree.CalculateAgreement(sharedPublicKey);
@@ -86,15 +86,11 @@ namespace BlackBox
         /// <returns></returns>
         private ArraySegment<byte> ProcessData(INetworkPlayer player, byte[] data, bool encrypt)
         {
-            IBufferedCipher cipher = CipherUtilities.GetCipher("AES/OFB/NOPADDING");
+            IBufferedCipher cipher = CipherUtilities.GetCipher("AES/CFB/NOPADDING");
 
-            cipher.Init(encrypt, new KeyParameter(ClientKeys[player.Connection]));
+            cipher.Init(encrypt, ParameterUtilities.CreateKeyParameter("AES", ClientKeys[player.Connection]));
 
-            byte[] processed = new byte[cipher.GetOutputSize(data.Length)];
-
-            int lengthProcess = cipher.ProcessBytes(data, 0, data.Length, processed, 0);
-
-            byte[] processedData = cipher.DoFinal(processed, 0, lengthProcess);
+            byte[] processedData = cipher.DoFinal(data);
 
             return new ArraySegment<byte>(processedData, 0, processedData.Length);
         }
