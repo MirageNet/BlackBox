@@ -24,7 +24,7 @@ jobs:
         # exit code is 1 for manual activation
         continue-on-error: true
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE2 }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         run: |          
           echo "$UNITY_LICENSE" | tr -d '\r' > UnityLicenseFile.ulf
           unity-editor -nographics -logFile /dev/stdout -manualLicenseFile UnityLicenseFile.ulf -quit 
@@ -79,5 +79,3 @@ jobs:
 
       - name: Generate Solution
         run: unity-editor -nographics -logFile /dev/stdout -customBuildName BlackBox -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
-
-            
