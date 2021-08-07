@@ -1,6 +1,5 @@
 [![Discord](https://img.shields.io/discord/809535064551456888.svg)](https://discordapp.com/invite/DTBPBYvexy)
 [![release](https://img.shields.io/github/release/Miragenet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/releases/latest)
-
 [![Build](https://github.com/MirageNet/BlackBox/workflows/CI/badge.svg)](https://github.com/MirageNet/BlackBox/actions?query=workflow%3ACI)
 [![GitHub issues](https://img.shields.io/github/issues/MirageNet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/issues)
 ![GitHub last commit](https://img.shields.io/github/last-commit/MirageNet/BlackBox.svg) ![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)
