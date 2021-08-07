@@ -1,7 +1,7 @@
 {
     "name": "com.miragenet.blackbox",
     "displayName": "Mirage BlackBox",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "unity": "2019.1",
     "description": "A plugin for mirage to allow to send and receive encrypted messages.",
     "author": "Team Mirage",
@@ -15,10 +15,10 @@
             "description": "Basic example of how to use encryption",
             "path": "Samples~/Basic"
         },
-		{
-			"displayName": "Login",
+        {
+            "displayName": "Login",
             "description": "Login example of how to use encryption for mirage authenticators.",
             "path": "Samples~/Login"
-		}
+        }
     ]
 }
