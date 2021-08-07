@@ -1,86 +1,73 @@
 name: CI
+#on:
+#  pull_request: {}
+#  push: { branches: [master] }
 
 on: 
   push:
     paths-ignore:
       - 'doc/**'
       - '*.md'
-  
+
 jobs:
-  requestActivationFile:
-    runs-on: ubuntu-latest
-    if: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Request manual activation file
-        uses: MirageNet/unity-runner@3.1.0
-        id: getManualLicenseFile
-        with:
-            entrypoint: /request_activation.sh
-
-      - name: Expose as artifact
-        uses: actions/upload-artifact@v1
-        with:
-            name: Manual Activation File
-            path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-    
   CI:
     name: Test
     runs-on: ubuntu-latest
+    # available list of containers here:
+    # https://hub.docker.com/r/unityci/editor/tags?page=1&ordering=last_updated&name=ubuntu-2020.1.17f1-base
     container: unityci/editor:ubuntu-2021.1.12f1-base-0.15.0
     env:
-      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-    if: true
+      DOTNET_ROOT: '/opt/unity/Editor/Data/NetCore/Sdk-2.2.107'
+
     steps:
-  
-      # Checkout repository (required to test local actions)
+      - name: Activate unity
+        # exit code is 1 for manual activation
+        continue-on-error: true
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE2 }}
+        run: |          
+          echo "$UNITY_LICENSE" | tr -d '\r' > UnityLicenseFile.ulf
+          unity-editor -nographics -logFile /dev/stdout -manualLicenseFile UnityLicenseFile.ulf -quit 
+      
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
+
+      - name: Cache Library
+        id: cache-library
+        uses: actions/cache@v2
         with:
-          fetch-depth: 0
-        
-      - name: Activate license
-        uses: MirageNet/unity-runner@3.1.0
-        with:
-          entrypoint: /activate.sh
-          
-      - name: Generate Solution
-        uses: MirageNet/unity-runner@3.1.0
-        with:
-          # Arguments to pass to unity
-          args: -buildTarget StandaloneWindows64 -customBuildName Mirage -customBuildPath ./build/StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
-  
-      # Configure test runner
+          path: Library
+          key: Library-2020.1.17
+
       - name: Run editor Tests
-        uses: MirageNet/unity-runner@3.1.0
-        with:
-          args: -runTests -testPlatform editmode -testResults Tests/editmode-results.xml -enableCodeCoverage -coverageResultsPath Tests
-          
+        run: unity-editor -nographics -logFile /dev/stdout -runTests -testPlatform editmode -testResults Tests/editmode-results.xml -enableCodeCoverage -coverageResultsPath Tests -debugCodeOptimization 
+        timeout-minutes: 20
+        
       - name: Run play Tests
-        uses: MirageNet/unity-runner@3.1.0
-        with:
-          args: -runTests -testPlatform playmode -testResults Tests/playmode-results.xml -enableCodeCoverage -coverageResultsPath Tests
-  
-      # Upload artifacts
+        run: unity-editor -nographics -logFile /dev/stdout -runTests -testPlatform playmode -testResults Tests/playmode-results.xml -enableCodeCoverage -coverageResultsPath Tests -debugCodeOptimization 
+        timeout-minutes: 20
+
       - name: Archive test results
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2.2.4
         if: always()
         with:
           name: Test results
           path: Tests
 
       - name: Publish test results
-        uses: MirageNet/nunit-reporter@v1.0.9
+        uses: MirageNet/nunit-reporter@v1.0.11
         if: always()
         with:
           path: "Tests/*.xml"
           access-token: ${{ secrets.GITHUB_TOKEN }}
-  
+            
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
       - name: Release
-        id: semantic
         uses: cycjimmy/semantic-release-action@v2
+        id: semantic
         with:
           extra_plugins: |
             @semantic-release/exec
@@ -89,3 +76,8 @@ jobs:
           branch: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Solution
+        run: unity-editor -nographics -logFile /dev/stdout -customBuildName BlackBox -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
+
+            
