@@ -70,7 +70,6 @@ jobs:
         id: semantic
         with:
           extra_plugins: |
-            @semantic-release/exec
             @semantic-release/changelog
             @semantic-release/git
           branch: master
