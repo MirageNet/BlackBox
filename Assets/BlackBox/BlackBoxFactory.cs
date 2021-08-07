@@ -66,6 +66,10 @@ namespace BlackBox
 
         #region Client
 
+        /// <summary>
+        ///     Client has disconnected let's clean up.
+        /// </summary>
+        /// <param name="error"></param>
         private void OnClientDisconnected(ClientStoppedReason error)
         {
             ClientBlackBoxEncryption = null;
@@ -111,13 +115,16 @@ namespace BlackBox
 
         #region Server
 
+        /// <summary>
+        ///     Server has shutdown let's clean up.
+        /// </summary>
         private void OnServerStop()
         {
             ServerBlackBoxEncryption = null;
         }
 
-    /// <summary>
-        /// 
+        /// <summary>
+        ///     When user disconnects from the server we want to remove there key from our list.
         /// </summary>
         /// <param name="player"></param>
         private void OnServerPlayerDisconnected(INetworkPlayer player)
@@ -137,9 +144,9 @@ namespace BlackBox
         }
 
         /// <summary>
-        /// 
+        ///     When player connects to server and fully authenticates we want to send them server's public key.
         /// </summary>
-        /// <param name="player"></param>
+        /// <param name="player">The player that authenticated.</param>
         private void OnServerAuthenticated(INetworkPlayer player)
         {
             var publicKey = ServerBlackBoxEncryption.KeyPair.Public as ECPublicKeyParameters;
@@ -153,10 +160,10 @@ namespace BlackBox
         }
 
         /// <summary>
-        /// 
+        ///     Server received back a public key from user to. We now will create a shared key with it.
         /// </summary>
-        /// <param name="player"></param>
-        /// <param name="message"></param>
+        /// <param name="player">The player that sent the message.</param>
+        /// <param name="message">The message details we received.</param>
         private void OnClientSharePublicKey(INetworkPlayer player, SharePublicKey message)
         {
             ECPoint point = ServerBlackBoxEncryption.X9EC.Curve.CreatePoint(new BigInteger(message.PublicShareKeyX),
