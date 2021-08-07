@@ -17,7 +17,7 @@ namespace BlackBox
         #region Network Messages
 
         [NetworkMessage]
-        internal struct SharePublicKey
+        private struct SharePublicKey
         {
             public string PublicShareKeyX;
             public string PublicShareKeyY;
