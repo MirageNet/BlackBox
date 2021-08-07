@@ -4,11 +4,11 @@
 [![GitHub issues](https://img.shields.io/github/issues/MirageNet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/issues)
 ![GitHub last commit](https://img.shields.io/github/last-commit/MirageNet/BlackBox.svg) ![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)
 
-<!--[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=alert_status)](https://sonarcloud.io/dashboard?id=BlackBox)-->
-<!--[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=coverage)](https://sonarcloud.io/component_measures?id=BlackBox&metric=coverage)-->
-<!--[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=ncloc)](https://sonarcloud.io/dashboard?id=BlackBox)-->
-<!--[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=sqale_index)](https://sonarcloud.io/dashboard?id=BlackBox)-->
-<!--[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=code_smells)](https://sonarcloud.io/dashboard?id=BlackBox)-->
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=alert_status)](https://sonarcloud.io/dashboard?id=BlackBox)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=coverage)](https://sonarcloud.io/component_measures?id=BlackBox&metric=coverage)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=ncloc)](https://sonarcloud.io/dashboard?id=BlackBox)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=sqale_index)](https://sonarcloud.io/dashboard?id=BlackBox)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=code_smells)](https://sonarcloud.io/dashboard?id=BlackBox)
 
 
 BlackBox is a plugin for Mirage to allow encrypting and decrypting of messages.
