@@ -1,11 +1,10 @@
 [![Discord](https://img.shields.io/discord/809535064551456888.svg)](https://discordapp.com/invite/DTBPBYvexy)
 [![release](https://img.shields.io/github/release/Miragenet/BlackBox.svg)](https://github.com/MirageNet/BlackBox/releases/latest)
 
-[![Build](https://github.com/BlkacBox/Discovery/workflows/CI/badge.svg)](https://github.com/MirageNet/BlackBox/actions?query=workflow%3ACI)
+[![Build](https://github.com/MirageNet/BlkacBox/workflows/CI/badge.svg)](https://github.com/MirageNet/BlackBox/actions?query=workflow%3ACI)
 [![GitHub issues](https://img.shields.io/github/issues/MirageNet/BlkacBox.svg)](https://github.com/MirageNet/BlkacBox/issues)
 ![GitHub last commit](https://img.shields.io/github/last-commit/MirageNet/BlkacBox.svg) ![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)
 
-[![Build](https://github.com/MirageNet/BlkacBox/workflows/CI/badge.svg)](https://github.com/MirageNet/BlkacBox/actions?query=workflow%3ACI)
 <!--[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=alert_status)](https://sonarcloud.io/dashboard?id=BlackBox)-->
 <!--[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=coverage)](https://sonarcloud.io/component_measures?id=BlackBox&metric=coverage)-->
 <!--[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BlackBox&metric=ncloc)](https://sonarcloud.io/dashboard?id=BlackBox)-->
