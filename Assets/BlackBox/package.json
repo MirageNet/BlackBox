@@ -4,7 +4,7 @@
     "version": "0.0.2",
     "unity": "2019.1",
     "description": "A plugin for mirage to allow to send and receive encrypted messages.",
-    "author": "Mirage",
+    "author": "Dragonslaya",
     "dependencies": {
         "com.miragenet.mirage": "100.0.3",
         "com.cysharp.unitask": "2.0.36"
