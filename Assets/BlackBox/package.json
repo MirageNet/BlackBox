@@ -1,24 +1,28 @@
 {
-    "name": "com.miragenet.blackbox",
-    "displayName": "Mirage BlackBox",
-    "version": "0.0.2",
-    "unity": "2019.1",
-    "description": "A plugin for mirage to allow to send and receive encrypted messages.",
-    "author": "Dragonslaya",
-    "dependencies": {
-        "com.miragenet.mirage": "100.0.3",
-        "com.cysharp.unitask": "2.0.36"
+  "name": "com.miragenet.blackbox",
+  "displayName": "Mirage BlackBox",
+  "version": "0.0.2",
+  "unity": "2019.1",
+  "description": "A plugin for mirage to allow to send and receive encrypted messages.",
+  "author": "Dragonslaya",
+  "dependencies": {
+    "com.miragenet.mirage": "100.0.3",
+    "com.cysharp.unitask": "2.0.36"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MirageNet/BlackBox.git"
+  },
+  "samples": [
+    {
+      "displayName": "Basic",
+      "description": "Basic example of how to use encryption",
+      "path": "Samples~/Basic"
     },
-    "samples": [
-        {
-            "displayName": "Basic",
-            "description": "Basic example of how to use encryption",
-            "path": "Samples~/Basic"
-        },
-        {
-            "displayName": "Login",
-            "description": "Login example of how to use encryption for mirage authenticators.",
-            "path": "Samples~/Login"
-        }
-    ]
+    {
+      "displayName": "Login",
+      "description": "Login example of how to use encryption for mirage authenticators.",
+      "path": "Samples~/Login"
+    }
+  ]
 }
